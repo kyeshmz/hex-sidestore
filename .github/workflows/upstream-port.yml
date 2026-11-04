@@ -1,0 +1,51 @@
+# Repairs scripts/patch-upstream.sh with oc-port-agent when upstream's iOS code stops
+# fitting it. build.yml starts this in sync mode when the patch fails; run it by hand in
+# check mode to preview what changed upstream without calling a model.
+name: Repair sideload patch with oc-port-agent
+
+on:
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: check previews the upstream changes; sync asks OpenCode for a fix and opens a draft PR
+        type: choice
+        options: [check, sync]
+        default: check
+
+permissions:
+  contents: write
+  pull-requests: write
+
+concurrency:
+  group: oc-port-agent
+  cancel-in-progress: false
+
+jobs:
+  port:
+    runs-on: macos-26
+    timeout-minutes: 150
+    steps:
+      - uses: actions/setup-node@v7
+        with:
+          node-version: "22"
+
+      - uses: actions/checkout@v7
+        with:
+          ref: main
+          fetch-depth: 0
+
+      - name: Install XcodeGen
+        run: brew install xcodegen
+
+      - name: Run oc-port-agent
+        uses: kyeshmz/oc-port-agent@3761d5a0231c115ad640639548c266eb66fcb74c
+        with:
+          api-key: ${{ secrets.OPENCODE_API_KEY }}
+          api-key-env: OPENCODE_API_KEY
+          model: ${{ vars.OC_PORT_MODEL || 'opencode/gpt-6.1-sol' }}
+          mode: ${{ inputs.mode }}
+          publish: ${{ inputs.mode == 'sync' && 'true' || 'false' }}
+          repository: ${{ github.repository }}
+          base: main
+        env:
+          GH_TOKEN: ${{ github.token }}

@@ -42,6 +42,30 @@ at runtime instead:
 
 If upstream changes either line, the build fails instead of publishing a broken keyboard.
 
+## Repairing the patch with oc-port-agent
+
+When upstream changes break the sideload patch,
+[oc-port-agent](https://github.com/kyeshmz/oc-port-agent) asks OpenCode to update it:
+
+1. After every successful build, the build workflow records the upstream commit it built in
+   `.oc-port/state.json`. That's the last commit the patch is known to work with.
+2. If a later build fails in the patch step, or the compiler reports errors in a file the patch
+   changed, the build starts [`upstream-port.yml`](.github/workflows/upstream-port.yml) in
+   `sync` mode. It does this once per breakage, and not while a repair PR is open.
+3. oc-port-agent gives OpenCode upstream's iOS changes since that commit. It follows the policy
+   in [`oc-port-agent.json`](oc-port-agent.json), which lets OpenCode edit only
+   `scripts/patch-upstream.sh` and `scripts/SideloadAppGroup.swift`.
+4. [`scripts/verify-upstream.sh`](scripts/verify-upstream.sh) builds the `.ipa` against that
+   exact upstream commit. If the build fails, OpenCode gets the output and tries again, up to 3
+   attempts.
+5. A passing fix becomes a draft PR. Nothing merges automatically. Merging it rebuilds and
+   publishes the app.
+
+Setup: add an OpenCode API key as the `OPENCODE_API_KEY` repository secret. The model defaults to
+`opencode/gpt-6.1-sol`; to change it, set the `OC_PORT_MODEL` repository variable. You can also
+run the workflow from the Actions tab: `check` previews pending upstream changes without calling
+a model, and `sync` requests a fix.
+
 The app is built with `CODE_SIGNING_ALLOWED=NO`, then ad-hoc signed with upstream's
 entitlements so SideStore can see which App Group to register. Each build's version is
 `<upstream major.minor>.<upstream commit count>`, so every build counts as an update.

@@ -1,0 +1,51 @@
+{
+  "version": 1,
+  "upstream": {
+    "repository": "https://github.com/anomalyco/hex.git",
+    "ref": "dev"
+  },
+  "selections": [
+    {
+      "id": "sideload-identifiers",
+      "description": "Keep upstream's iOS app working after SideStore re-signs it under the installer's own Apple team.",
+      "upstreamPaths": ["ios/**/*.swift", "ios/**/*.entitlements", "ios/**/Info.plist", "ios/project.yml"],
+      "excludeUpstreamPaths": ["ios/HEXMobileTests/**"],
+      "targetPaths": ["scripts/patch-upstream.sh", "scripts/SideloadAppGroup.swift"],
+      "acceptance": [
+        "scripts/patch-upstream.sh applies to the new upstream checkout and all of its own checks pass.",
+        "Every App Group or bundle identifier that the app or its extensions hardcode resolves at runtime, because SideStore renames App Groups to <group>.<TEAMID> and appends the team ID to bundle IDs.",
+        "App Group lookups go through SideloadAppGroup.resolve(fallback:), which reads the group from the embedded provisioning profile.",
+        "Each patch still stops the build with a clear message when the upstream code it targets is missing, instead of silently doing nothing."
+      ],
+      "instructions": {
+        "goal": "When upstream changes the code the sideload patch targets, or adds new team-specific identifiers, update the patch so the app builds and its keyboard can still reach the app after SideStore re-signs it.",
+        "adaptation": [
+          "Patch the upstream checkout at build time with small, targeted substitutions in scripts/patch-upstream.sh.",
+          "Match on the identifier being replaced rather than whole lines, so unrelated upstream edits don't break the patch.",
+          "Derive extension bundle IDs from Bundle.main.bundleIdentifier instead of hardcoding them."
+        ],
+        "nonGoals": [
+          "Do not copy upstream source files into this repository.",
+          "Do not remove, disable, or stub out upstream features to make the build pass.",
+          "Do not change how releases, versions, or source.json are produced."
+        ]
+      }
+    }
+  ],
+  "preserve": [
+    "The .ipa stays unsigned for distribution: built with CODE_SIGNING_ALLOWED=NO, then ad-hoc signed with upstream's entitlements by scripts/build-ipa.sh.",
+    "Upstream bundle IDs stay unchanged in the .ipa; SideStore appends the installer's team ID itself.",
+    "scripts/patch-upstream.sh stays idempotent and exits non-zero when a patch cannot be applied."
+  ],
+  "verification": [
+    { "command": "scripts/verify-upstream.sh", "args": [], "timeoutSeconds": 2400 }
+  ],
+  "opencode": {
+    "maxAttempts": 3,
+    "timeoutSeconds": 1800
+  },
+  "limits": {
+    "maxCommits": 10000,
+    "maxContextBytes": 2000000
+  }
+}
