@@ -1,0 +1,21 @@
+{
+  "name": "Hex (unofficial SideStore builds)",
+  "identifier": "io.github.kyeshmz.hex-sidestore",
+  "sourceURL": "https://raw.githubusercontent.com/kyeshmz/hex-sidestore/main/source.json",
+  "subtitle": "Automatic builds of Hex's iOS app",
+  "description": "Unofficial builds of the Hex iOS app from the dev branch of https://github.com/anomalyco/hex, rebuilt whenever its iOS code changes. Not affiliated with or endorsed by the Hex developers.",
+  "website": "https://github.com/kyeshmz/hex-sidestore",
+  "iconURL": "https://raw.githubusercontent.com/kyeshmz/hex-sidestore/main/assets/icon.png",
+  "apps": [
+    {
+      "name": "Hex",
+      "bundleIdentifier": "com.kitlangton.hex.mobile",
+      "developerName": "anomalyco/hex (unofficial build)",
+      "subtitle": "On-device voice dictation keyboard",
+      "localizedDescription": "Hex records while you dictate and transcribes on your iPhone with Apple Speech or Parakeet, then types the text through its keyboard. Nothing leaves the device.\n\nThis is an unofficial build of https://github.com/anomalyco/hex. Report packaging problems at https://github.com/kyeshmz/hex-sidestore/issues, not upstream.",
+      "iconURL": "https://raw.githubusercontent.com/kyeshmz/hex-sidestore/main/assets/icon.png",
+      "versions": []
+    }
+  ],
+  "news": []
+}

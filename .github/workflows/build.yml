@@ -1,0 +1,118 @@
+name: Build Hex for SideStore
+
+on:
+  schedule:
+    - cron: "23 6 * * *"
+  workflow_dispatch:
+    inputs:
+      force:
+        description: Rebuild even if upstream's iOS code hasn't changed
+        type: boolean
+        default: false
+  push:
+    branches: [main]
+    paths:
+      - "scripts/**"
+      - ".github/workflows/build.yml"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: build
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: macos-26
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v7
+
+      - name: Check out upstream Hex
+        uses: actions/checkout@v7
+        with:
+          repository: anomalyco/hex
+          ref: dev
+          path: upstream
+          fetch-depth: 0
+          filter: blob:none
+          sparse-checkout: |
+            ios
+            app/AppIcon.icon
+            tests/fixtures/vocabulary/audio
+
+      - name: Decide whether to build
+        id: plan
+        working-directory: upstream
+        env:
+          FORCE: ${{ github.event_name == 'push' || inputs.force == true }}
+          RUN: ${{ github.run_number }}
+        run: |
+          paths=(ios app/AppIcon.icon tests/fixtures/vocabulary/audio)
+          commit=$(git log -1 --format=%H -- "${paths[@]}")
+          last=$(jq -r '.apps[0].versions[0].upstreamCommit // empty' ../source.json)
+          if [[ "$commit" == "$last" && "$FORCE" != "true" ]]; then
+            echo "Upstream iOS code unchanged since ${last:0:12}; nothing to build."
+            echo "build=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          git cat-file -e "$last^{commit}" 2>/dev/null || last=""
+
+          count=$(git rev-list --count "$commit")
+          marketing=$(awk '/MARKETING_VERSION:/ { print $2; exit }' ios/project.yml)
+          version="${marketing%.*}.$count"
+          git log -n 20 --format='- %s (%h)' "${last:+$last..}$commit" -- "${paths[@]}" > "$RUNNER_TEMP/notes.md"
+
+          {
+            echo "build=true"
+            echo "commit=$commit"
+            echo "version=$version"
+            echo "build_number=$count.$RUN"
+            echo "tag=v$version-r$RUN"
+          } >> "$GITHUB_OUTPUT"
+
+      - name: Install XcodeGen
+        if: steps.plan.outputs.build == 'true'
+        run: brew install xcodegen
+
+      - name: Build .ipa
+        if: steps.plan.outputs.build == 'true'
+        env:
+          VERSION: ${{ steps.plan.outputs.version }}
+          BUILD_NUMBER: ${{ steps.plan.outputs.build_number }}
+        run: |
+          xcodebuild -version
+          scripts/build-ipa.sh upstream "$RUNNER_TEMP/Hex.ipa" "$VERSION" "$BUILD_NUMBER"
+
+      - name: Publish release and update source.json
+        if: steps.plan.outputs.build == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          TAG: ${{ steps.plan.outputs.tag }}
+          VERSION: ${{ steps.plan.outputs.version }}
+          BUILD_NUMBER: ${{ steps.plan.outputs.build_number }}
+          COMMIT: ${{ steps.plan.outputs.commit }}
+        run: |
+          {
+            echo "Unofficial build of https://github.com/anomalyco/hex/commit/$COMMIT for SideStore."
+            echo
+            cat "$RUNNER_TEMP/notes.md"
+          } > "$RUNNER_TEMP/release.md"
+          gh release create "$TAG" --repo "$GITHUB_REPOSITORY" \
+            --title "Hex $VERSION ($BUILD_NUMBER)" --notes-file "$RUNNER_TEMP/release.md" \
+            "$RUNNER_TEMP/Hex.ipa" upstream/LICENSE upstream/THIRD_PARTY_NOTICES.md
+
+          python3 scripts/update-source.py \
+            --source source.json \
+            --ipa "$RUNNER_TEMP/Hex.ipa" \
+            --url "https://github.com/$GITHUB_REPOSITORY/releases/download/$TAG/Hex.ipa" \
+            --upstream-commit "$COMMIT" \
+            --notes-file "$RUNNER_TEMP/notes.md"
+
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add source.json
+          git commit -m "Hex $VERSION ($BUILD_NUMBER)"
+          git pull --rebase
+          git push
