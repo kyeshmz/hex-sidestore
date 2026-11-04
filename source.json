@@ -14,7 +14,28 @@
       "subtitle": "On-device voice dictation keyboard",
       "localizedDescription": "Hex records while you dictate and transcribes on your iPhone with Apple Speech or Parakeet, then types the text through its keyboard. Nothing leaves the device.\n\nThis is an unofficial build of https://github.com/anomalyco/hex. Report packaging problems at https://github.com/kyeshmz/hex-sidestore/issues, not upstream.",
       "iconURL": "https://raw.githubusercontent.com/kyeshmz/hex-sidestore/main/assets/icon.png",
-      "versions": []
+      "versions": [
+        {
+          "version": "0.2.1315",
+          "buildVersion": "1315.1",
+          "date": "2026-11-04T17:50:08Z",
+          "localizedDescription": "- Fix #987: iOS full keyboard Hex key gestures (#995) (d71246c)\n- iOS: choose and order the keyboard's return apps (#668) (#905) (4e03fdf)\n- iOS: fields that ask for a dark keyboard get one (#904) (ae63585)\n- iOS: full keyboard key plane, Hex key, and recording panel behind the experiment (#914) (55b50e7)\n- iOS: full keyboard experiment flag, key layout and shift model (#910) (872d46b)\n- fix(ios): resume waveform metering after transient recorder states (#889) (ddb78ed)\n- fix(ios): eliminate handoff frame stalls and add overlapping ballistic swipe throw (t1153) (#757) (87b2cea)\n- feat(ios): full-bottom-width 120 Hz silk swipe cue on Home Indicator (t1153) (#753) (b23d75f)\n- Add agent marker and drop internal references (#702) (fb87ecf)\n- feat(ios): continuous stage motion, stroke-free UI, and Home-Indicator swipe cue (t1153) (#705) (eadcd5e)\n- feat(ios): full-width Dot Scope bar, Hex mark, and swipe return cue (t1153) (#686) (734cfd5)\n- feat(ios): port GPU Dot Scope to iPhone app and keyboard and trim settings copy (#671) (768a494)\n- iOS: guard test reads real App Intent metadata (ITMS-90626) (#672) (1548089)\n- Fix #666: iOS keyboard return-app tray (#670) (695fa96)\n- Open Hex from the iPhone keyboard and show live keyboard setup (#599) (311ed5d)\n- feat(ios): polish iPhone keyboard dictation, warm sessions, and Live Activity (#574) (1980a8b)\n- Shrink the app icon's mark a size (t573) (#441) (a41e674)\n- Rename voice-control to hex everywhere, without migrations (#293) (3434eb5)\n- Add vocabulary recall and false-insertion evaluation corpus (0d3f338)\n- docs: audit guides against current behavior (9e9da53)",
+          "downloadURL": "https://github.com/kyeshmz/hex-sidestore/releases/download/v0.2.1315-r1/Hex.ipa",
+          "size": 8149069,
+          "sha256": "509726d0a5954b9f1e8e7878916f19baddb05ced01a21449a7efd96b6b675978",
+          "minOSVersion": "18.0",
+          "upstreamCommit": "d71246c4c5ff75d0835c4c49958db851add3433f"
+        }
+      ],
+      "appPermissions": {
+        "entitlements": [
+          "com.apple.security.application-groups"
+        ],
+        "privacy": {
+          "NSMicrophoneUsageDescription": "Hex records only while you dictate and transcribes locally on this iPhone.",
+          "NSSpeechRecognitionUsageDescription": "Hex uses Apple's on-device SpeechTranscriber to turn your recording into text."
+        }
+      }
     }
   ],
   "news": []
