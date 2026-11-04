@@ -17,12 +17,12 @@
       "versions": [
         {
           "version": "0.2.1315",
-          "buildVersion": "1315.2",
-          "date": "2026-11-04T18:03:20Z",
+          "buildVersion": "1315.4",
+          "date": "2026-11-04T19:24:15Z",
           "localizedDescription": "",
-          "downloadURL": "https://github.com/kyeshmz/hex-sidestore/releases/download/v0.2.1315-r2/Hex.ipa",
-          "size": 8149086,
-          "sha256": "2da13b38c2746ccf2be088d9d8c0214c073dfc4f2354e40d441b91bbb9b567a2",
+          "downloadURL": "https://github.com/kyeshmz/hex-sidestore/releases/download/v0.2.1315-r4/Hex.ipa",
+          "size": 8149568,
+          "sha256": "237310effc1e7064acb136423a7389c300055c9a2c0e1af2aa541d0b4f92b1b0",
           "minOSVersion": "18.0",
           "upstreamCommit": "d71246c4c5ff75d0835c4c49958db851add3433f"
         }
