@@ -13,6 +13,7 @@ import subprocess
 import tempfile
 
 APP_GROUPS = "com.apple.security.application-groups"
+KEYBOARD_EXTENSION = "com.apple.keyboard-service"
 PRIVACY_KEY = re.compile(r"^NS\w+UsageDescription$")
 KEEP_VERSIONS = 10
 
@@ -55,13 +56,16 @@ def main():
         info = read_plist(os.path.join(app, "Info.plist"))
         entitlements, privacy = set(), {}
         for bundle in bundles:
-            entitlements.update(signed_entitlements(bundle))
-            for key, value in read_plist(os.path.join(bundle, "Info.plist")).items():
+            bundle_info = read_plist(os.path.join(bundle, "Info.plist"))
+            bundle_entitlements = signed_entitlements(bundle)
+            extension_point = bundle_info.get("NSExtension", {}).get("NSExtensionPointIdentifier")
+            needs_group = bundle == app or extension_point == KEYBOARD_EXTENSION
+            if needs_group and APP_GROUPS not in bundle_entitlements:
+                raise SystemExit(f"{os.path.basename(bundle)} lacks {APP_GROUPS}; the keyboard couldn't reach the app")
+            entitlements.update(bundle_entitlements)
+            for key, value in bundle_info.items():
                 if PRIVACY_KEY.match(key):
                     privacy.setdefault(key, value)
-
-    if APP_GROUPS not in entitlements:
-        raise SystemExit(f"{APP_GROUPS} is missing from the .ipa, so the keyboard couldn't reach the app")
 
     with open(args.notes_file) as f:
         notes = f.read().strip()

@@ -29,27 +29,42 @@ build_args=(
 )
 xcodebuild "${build_args[@]}" build
 
-# product name <TAB> entitlements file <TAB> product type, one line per target
-settings=$(xcodebuild "${build_args[@]}" -showBuildSettings -json | python3 -c '
+fail() { echo "build-ipa: $*" >&2; exit 1; }
+
+# product name <TAB> entitlements file <TAB> product type, for every target.
+# -alltargets matters: a scheme only reports its main target, not embedded extensions.
+settings=$(xcodebuild -project HEXMobile.xcodeproj -alltargets -configuration Release -sdk iphoneos \
+  -showBuildSettings -json | python3 -c '
 import json, re, sys
 text = sys.stdin.read()
 for target in json.loads(text[re.search(r"^\[", text, re.M).start():]):
     s = target["buildSettings"]
     print(s["FULL_PRODUCT_NAME"], s.get("CODE_SIGN_ENTITLEMENTS", ""), s["PRODUCT_TYPE"], sep="\t")
-')
+' | sort -u)
 app_name=$(awk -F'\t' '$3 == "com.apple.product-type.application" { print $1; exit }' <<<"$settings")
 app="$derived/Build/Products/Release-iphoneos/$app_name"
-[[ -d "$app" ]] || { echo "build-ipa: no app at $app" >&2; exit 1; }
+[[ -d "$app" ]] || fail "no app at $app"
 
 entitlements_for() { awk -F'\t' -v name="$1" '$1 == name && $2 != "" { print $2; exit }' <<<"$settings"; }
 
-# Ad-hoc sign innermost bundles first so the App Group entitlement is embedded.
+# Ad-hoc sign innermost bundles first so each bundle's App Group entitlement is embedded.
 # SideStore reads it to register the group under your team before signing for real.
+signed_with_entitlements=""
 while IFS= read -r -d '' bundle; do
-  entitlements=$(entitlements_for "$(basename "$bundle")")
+  name=$(basename "$bundle")
+  entitlements=$(entitlements_for "$name")
   codesign --force --sign - --timestamp=none \
     ${entitlements:+--entitlements "$checkout/ios/$entitlements"} "$bundle"
+  if [[ -n "$entitlements" ]]; then
+    [[ -n "$(codesign -d --entitlements - --xml "$bundle" 2>/dev/null)" ]] || fail "$name lost its entitlements"
+    signed_with_entitlements+="$name"$'\n'
+  fi
 done < <(find "$app" -depth \( -name '*.appex' -o -name '*.framework' -o -name '*.dylib' -o -path "$app" \) -print0)
+
+# A keyboard without the App Group installs fine but can never reach the app.
+expected=$(awk -F'\t' '$2 != "" && $3 != "com.apple.product-type.bundle.unit-test" { print $1 }' <<<"$settings" | sort -u)
+missing=$(comm -23 <(echo "$expected") <(sort -u <<<"$signed_with_entitlements"))
+[[ -z "$missing" ]] || fail "not signed with their entitlements: $missing"
 
 stage=$(mktemp -d)
 mkdir "$stage/Payload"
