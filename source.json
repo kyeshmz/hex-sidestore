@@ -16,6 +16,17 @@
       "iconURL": "https://raw.githubusercontent.com/kyeshmz/hex-sidestore/main/assets/icon.png",
       "versions": [
         {
+          "version": "0.2.1624",
+          "buildVersion": "1624.8",
+          "date": "2026-11-08T13:44:53Z",
+          "localizedDescription": "- ios: optional Apple Intelligence transcript cleanup (experiment) (#1538) (74c26f5)",
+          "downloadURL": "https://github.com/kyeshmz/hex-sidestore/releases/download/v0.2.1624-r8/Hex.ipa",
+          "size": 8170501,
+          "sha256": "1f56a4b91101612de9745ffac1d55fa350837a69abfeb735aefbc8088aa27a78",
+          "minOSVersion": "18.0",
+          "upstreamCommit": "74c26f5bf5670baa25bd2ed7d0c5766c53bba22c"
+        },
+        {
           "version": "0.2.1315",
           "buildVersion": "1315.4",
           "date": "2026-11-04T19:24:15Z",
