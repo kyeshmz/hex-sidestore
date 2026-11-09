@@ -16,6 +16,17 @@
       "iconURL": "https://raw.githubusercontent.com/kyeshmz/hex-sidestore/main/assets/icon.png",
       "versions": [
         {
+          "version": "0.2.1629",
+          "buildVersion": "1629.9",
+          "date": "2026-11-09T16:46:12Z",
+          "localizedDescription": "- ios: custom vocabulary experiment (#1547) (ebf520d)",
+          "downloadURL": "https://github.com/kyeshmz/hex-sidestore/releases/download/v0.2.1629-r9/Hex.ipa",
+          "size": 8203658,
+          "sha256": "2e89ff846135c6189cc6a185b0b0d21a0209a044445ea52a690744dfcb7e40ad",
+          "minOSVersion": "18.0",
+          "upstreamCommit": "ebf520dc5d1053f749e9ad8662a11fc90a06a4fe"
+        },
+        {
           "version": "0.2.1624",
           "buildVersion": "1624.8",
           "date": "2026-11-08T13:44:53Z",
