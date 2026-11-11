@@ -16,6 +16,17 @@
       "iconURL": "https://raw.githubusercontent.com/kyeshmz/hex-sidestore/main/assets/icon.png",
       "versions": [
         {
+          "version": "0.2.1679",
+          "buildVersion": "1679.11",
+          "date": "2026-11-11T14:40:40Z",
+          "localizedDescription": "- ios: keep the keyboard's dot scope off its launch path (#1650) (0d926635)",
+          "downloadURL": "https://github.com/kyeshmz/hex-sidestore/releases/download/v0.2.1679-r11/Hex.ipa",
+          "size": 8213460,
+          "sha256": "f1ef627367f36d8307ab53f2eea3c7acc94aeaf200a3819c966d62b52421c7f4",
+          "minOSVersion": "18.0",
+          "upstreamCommit": "0d9266358177b618e724eb8a44fecbc37850fd52"
+        },
+        {
           "version": "0.2.1629",
           "buildVersion": "1629.9",
           "date": "2026-11-09T16:46:12Z",
