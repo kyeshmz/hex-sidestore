@@ -9,12 +9,23 @@
   "apps": [
     {
       "name": "Hex",
-      "bundleIdentifier": "com.kitlangton.hex.mobile",
+      "bundleIdentifier": "anomaly.hex.mobile",
       "developerName": "anomalyco/hex (unofficial build)",
       "subtitle": "On-device voice dictation keyboard",
       "localizedDescription": "Hex records while you dictate and transcribes on your iPhone with Apple Speech or Parakeet, then types the text through its keyboard. Nothing leaves the device.\n\nThis is an unofficial build of https://github.com/anomalyco/hex. Report packaging problems at https://github.com/kyeshmz/hex-sidestore/issues, not upstream.",
       "iconURL": "https://raw.githubusercontent.com/kyeshmz/hex-sidestore/main/assets/icon.png",
       "versions": [
+        {
+          "version": "0.2.1972",
+          "buildVersion": "1972.20",
+          "date": "2026-11-20T15:45:54Z",
+          "localizedDescription": "- iOS: speech model fallbacks for iPhone 11 and unavailable languages; no raw errors in the keyboard (#2048) (178c16fd)\n- iOS onboarding: say 100% on device on the welcome page (#2047) (8b8b6fc0)\n- iOS: Spanish clean-up, paste translated or as spoken, screen stays on while recording (#2046) (1ede7bb7)\n- iOS keyboard: open Hex instead of being killed when short of memory (#2045) (6ab53fff)\n- iOS onboarding: say 'Allow Full Access' in the Keyboard row itself (#2044) (550eccd9)\n- iOS: remove the return-to-app feature; swipe back after a handoff (#2042) (42e6e8e1)\n- iOS: no hyphens from autocorrect, completions ranked by frequency (#2041) (deb84b60)\n- iOS: drop the recording dot and timer so the Dot Scope fills the recording bar (#2040) (f82adb82)\n- iOS: end the recording bar with round cancel and check buttons, the check becoming the spinner (#2039) (15965d56)\n- iOS: grow the keyboard for a taller recording bar and show one transcribing status (#2038) (0aa6fb8f)\n- iOS: keep dictation in the suggestion strip and leave the keys in place (#2037) (33727933)\n- iOS: ask for the microphone before sending setup to Settings (#2036) (221b6a45)\n- iOS: fix six TestFlight tester issues (audio error, leaked error text, Live Activity, haptics, capitals, push to talk) (#2035) (9d26cbdb)\n- iOS: Norwegian, Spanish and German full-keyboard layouts (bb5875ce)\n- iOS: switch the dictation language from the keyboard (2b225b39)\n- iOS: dictate in every language Apple Speech has on device (ee34feb4)\n- iOS: load the cleanup model after recording and only with memory to spare in the keyboard (#2033) (d21699b8)\n- iOS: trim onboarding to the essentials (#2032) (c2cae93d)\n- iOS: add a three-page first-run onboarding (#2031) (15186d04)\n- iOS: add a Haptics switch to the full keyboard (#2030) (635a6c5a)",
+          "downloadURL": "https://github.com/kyeshmz/hex-sidestore/releases/download/v0.2.1972-r20/Hex.ipa",
+          "size": 9279983,
+          "sha256": "9f5ef7298cff226e77b0a81ac6b3942d0a055994dee538d7758c8fe5dffa4987",
+          "minOSVersion": "18.0",
+          "upstreamCommit": "178c16fdc52eabce1cdaf98173da4dbec67110e2"
+        },
         {
           "version": "0.2.1679",
           "buildVersion": "1679.11",
