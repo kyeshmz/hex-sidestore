@@ -16,6 +16,17 @@
       "iconURL": "https://raw.githubusercontent.com/kyeshmz/hex-sidestore/main/assets/icon.png",
       "versions": [
         {
+          "version": "9.0.2087",
+          "buildVersion": "2087.21",
+          "date": "2026-11-21T14:55:58Z",
+          "localizedDescription": "- iOS: spoken punctuation in dictation (#2198) (0226b166)\n- iOS: Multilingual model (Parakeet Ultra) experiment, off by default (#2197) (b849b63f)\n- iOS: delete keeps an autocorrection and the strip offers the revert, smart quotes, a two-way trackpad, and key clicks (#2192) (2863cd65)\n- iOS: Latin American Spanish dictates with US or Mexican Spanish, and labels name the variant (#2191) (d4b78702)\n- iOS: TestFlight stays on 9.0.0, above every 1.0.x App Store release (#2195) (25a96a8f)\n- iOS: TestFlight stays on 0.9.0, and App Store releases are tagged 1.0.x (#2194) (ff9aeec9)\n- ios: learn each language separately (experiment) (#2188) (a0a7da5e)\n- iOS: Apple's on-device recognizer for older iPhones and languages Parakeet can't do, and iOS 18 translation (#2190) (fbcec374)\n- iOS: swipe reads the letters under the path, and the emoji bar scrubs (#2189) (b719d45e)\n- iOS: Code from Messages shows only when Apple's keyboard is on (#2187) (acf0f2b7)\n- iOS: French spacing in dictation, and a second language no longer hurts English autocorrect (#2186) (36197857)\n- iOS keyboard: nothing heavy before the keys' first frame (#2185) (c0f15f76)\n- iOS: Greek keyboard, tonos autocorrect, and a final ς in Lowercase (#2184) (a76d240c)\n- iOS: remove and add dictation languages from the keyboard, and a space-bar cursor on the Dictation bar (#2180) (83717ce6)\n- iOS: dictation picks the car's mic in CarPlay, and a warm session never holds call audio (#2179) (d23acdf8)\n- iOS: the full keyboard matches the system keyboard one to one (#2178) (9ca17141)\n- iOS: translation says when it pastes as spoken, retries, and never turns itself off (#2176) (2a023f91)\n- iOS: text replacements fire like the system's and stay put, and no stray capitals from suggestions (#2173) (f1191327)\n- iOS: choose QWERTY, QWERTZ, AZERTY or Dvorak per keyboard language (#2172) (33c2a4ed)\n- iOS: model preparation loads once, keeps moving, and survives the background (#2171) (7ff7a050)",
+          "downloadURL": "https://github.com/kyeshmz/hex-sidestore/releases/download/v9.0.2087-r21/Hex.ipa",
+          "size": 17325523,
+          "sha256": "c8cd7493deca74ba71c0e5058f3299b2d31be5f8c97b05a10ceb1cce5aa03b8e",
+          "minOSVersion": "18.0",
+          "upstreamCommit": "0226b1667d6319b4cf40eb45c74f7f723ae08a52"
+        },
+        {
           "version": "0.2.1972",
           "buildVersion": "1972.20",
           "date": "2026-11-20T15:45:54Z",
@@ -76,8 +87,8 @@
           "com.apple.security.application-groups"
         ],
         "privacy": {
-          "NSMicrophoneUsageDescription": "Hex records only while you dictate and transcribes locally on this iPhone.",
-          "NSSpeechRecognitionUsageDescription": "Hex uses Apple's on-device SpeechTranscriber to turn your recording into text."
+          "NSMicrophoneUsageDescription": "Hex turns what you say into text on this iPhone. Audio never leaves your iPhone and is deleted once it's transcribed.",
+          "NSSpeechRecognitionUsageDescription": "Hex turns your recordings into text with Apple's on-device speech recognition. Nothing you say is sent to a server."
         }
       }
     }
