@@ -16,6 +16,17 @@
       "iconURL": "https://raw.githubusercontent.com/kyeshmz/hex-sidestore/main/assets/icon.png",
       "versions": [
         {
+          "version": "9.0.2201",
+          "buildVersion": "2201.22",
+          "date": "2026-11-22T14:51:00Z",
+          "localizedDescription": "- ios: add Dvorak punctuation keys experiment (#2373) (0c1c13d7)\n- iOS: a working dictation is never taken away by a guess, and no speech model check sits forever (#2371) (26151681)\n- iOS: add a Greeklish experiment for Greek dictation (#2366) (3bb5e570)\n- iOS keyboard: add a keyboard themes experiment (#2365) (0c7ebe7f)\n- iOS: Hungarian keyboard with accent restoration and bilingual autocorrect (#2355) (cbb48e30)\n- iOS keyboard: stop leaking views, capture web views, and emoji indices across shows (#2352) (994b3469)\n- iOS keyboard: on iOS 26 the iPhone's rows are Apple's iOS 26 rows (#2358) (393dad06)\n- iOS keyboard: Ukrainian follows the iOS version's own rows; ʼ on its 123 and #+= pages (#2357) (6459618d)\n- iOS keyboard: Canadian and Swiss French get Apple's apostrophe key ending row 2 (#2356) (5a9fe629)\n- iOS keyboard: French AZERTY gets Apple's apostrophe key after N (#2354) (9588830c)\n- iOS: two-language dictation experiment (#2348) (3d834b6a)\n- iOS keyboard: Korean two-set (두벌식) layout with Hangul composition (experiment, off by default) (#2339) (8a84d85c)\n- ios: smaller key labels on the duo's cover screen (#2346) (0e6b553c)\n- iOS keyboard: no automatic hand-off or Code from Messages where Apple's keyboard is split (#2349) (c167fbbf)\n- iOS keyboard: optional joined keyboard on the unfolded Duo (Experiments) (#2343) (b0cf612c)\n- iOS dictation: no spaces or stray full stops around Chinese and Japanese; the bar's emoji panel says Back (#2347) (8a4216fd)\n- iOS: plainer interface wording (copy pass) (#2345) (4f51dbbc)\n- iOS keyboard: the globe opens the list where Apple's keyboard is split, so the host doesn't crash (#2340) (10d64004)\n- iOS: split DictationController so dev passes the size check again (#2342) (5affd685)\n- iOS: the multilingual model experiment never takes dictation away; its download says what it's doing and recovers (#2337) (8583160e)",
+          "downloadURL": "https://github.com/kyeshmz/hex-sidestore/releases/download/v9.0.2201-r22/Hex.ipa",
+          "size": 17815089,
+          "sha256": "c81af05c147e0084c1fad6be6c8c1dfe65c8eb710a6ee847a22c0b12b660e4d9",
+          "minOSVersion": "18.0",
+          "upstreamCommit": "0c1c13d71b853ac3113d9a622e4fd9af3755d068"
+        },
+        {
           "version": "9.0.2087",
           "buildVersion": "2087.21",
           "date": "2026-11-21T14:55:58Z",
@@ -87,8 +98,8 @@
           "com.apple.security.application-groups"
         ],
         "privacy": {
-          "NSMicrophoneUsageDescription": "Hex turns what you say into text on this iPhone. Audio never leaves your iPhone and is deleted once it's transcribed.",
-          "NSSpeechRecognitionUsageDescription": "Hex turns your recordings into text with Apple's on-device speech recognition. Nothing you say is sent to a server."
+          "NSMicrophoneUsageDescription": "Hex turns what you say into text on this iPhone. Audio never leaves it and is deleted once it's transcribed.",
+          "NSSpeechRecognitionUsageDescription": "Hex uses Apple's on-device speech recognition to turn what you say into text. Nothing you say is sent to a server."
         }
       }
     }
