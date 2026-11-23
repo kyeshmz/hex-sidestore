@@ -16,6 +16,17 @@
       "iconURL": "https://raw.githubusercontent.com/kyeshmz/hex-sidestore/main/assets/icon.png",
       "versions": [
         {
+          "version": "9.0.2312",
+          "buildVersion": "2312.23",
+          "date": "2026-11-23T18:39:40Z",
+          "localizedDescription": "- iOS keyboard: ✓ keeps the last words said before the tap (#2538) (3ef0bdd4)\n- iOS keyboard: every point of the emoji panel takes touches, so a glide can be caught (#2547) (7b819316)\n- ios: Speech model row says \"Only for English dictation.\" outside English (#2544) (c2b70420)\n- iOS Two-language dictation: change language between words neither reading spans (#2533) (2b5f2ae8)\n- iOS tests: the live words' hold cases stop depending on the Mac's uptime (#2534) (20814dd8)\n- iOS keyboard: dictate in the keyboard while Hex's own speech model isn't installed (#2511) (23f53007)\n- iOS strings: Simplified Chinese for #2478's Starting strings (#2502) (ca7cf2a0)\n- refactor(ios): explicit state machines for dictation controller and in-keyboard dictation (#2499) (eaf76fa7)\n- refactor(ios): unify dictation routing, engine identity, and Parakeet plan (#2491) (213dab8e)\n- iOS keyboard: the trackpad takes an unchanged context as the text's start or end (#2482) (f1c12743)\n- iOS keyboard: a language picked by hand goes to Hex when the keyboard can't get its model (#2480) (643d6f74)\n- fix(ios): show recording only once audio starts flowing (#2478) (a2d940e3)\n- iOS keyboard: the strip's words don't roll while the keyboard is coming on screen (#2475) (4bb3a4ed)\n- iOS keyboard: Code from Messages opens the keyboard list where Apple's keyboard is split, instead of offering nothing (#2473) (3f1b9af1)\n- iOS keyboard: a notification no longer ends an in-keyboard dictation (#2472) (2d7dff5f)\n- iOS Settings: Home refreshes again while it shows, Into field falls back to the words over the keys, the speech model card lands on its row, docs match (#2471) (d7b69066)\n- iOS keyboard: the recording transition moves to FullKeyboardView+Recording.swift (#2464) (0304eb1c)\n- iOS: \"heart\" offers ❤️; the whole-name rule moves into the emoji index (#2465) (db515bda)\n- iOS keyboard: Light is the default key haptic strength (#2463) (6651f3e0)\n- iOS: offer the emoji of the word being typed (\"smile\" → 😊) (#2461) (40da8709)",
+          "downloadURL": "https://github.com/kyeshmz/hex-sidestore/releases/download/v9.0.2312-r23/Hex.ipa",
+          "size": 25899080,
+          "sha256": "a8cc8a5f339a5d40eb4e400d12456ab1cd02ae5a205b49c6f05a833e947b97c3",
+          "minOSVersion": "18.0",
+          "upstreamCommit": "3ef0bdd4c472c1fc8ec755e757de66e5540bdd24"
+        },
+        {
           "version": "9.0.2201",
           "buildVersion": "2201.22",
           "date": "2026-11-22T14:51:00Z",
