@@ -16,6 +16,17 @@
       "iconURL": "https://raw.githubusercontent.com/kyeshmz/hex-sidestore/main/assets/icon.png",
       "versions": [
         {
+          "version": "9.0.2353",
+          "buildVersion": "2353.24",
+          "date": "2026-11-24T18:10:53Z",
+          "localizedDescription": "- refactor(ios): simplify dictation capture phase, controller shims, and Parakeet wrappers\\n\\n- Slim KeyboardLocalCapturePhase to a read-only snapshot projection and remove its unused mutating state-machine helpers, StartupStage, ArmedFailure, ArmedReadiness, and KeepArmedOutcome\\n- Remove duplicate DictationController.markModelReadyPreservingCapture(), unused keyboardSessionExpiresAt, and the redundant KeyboardJob enum wrapper in favor of String?\\n- Point FullKeyboardView.offerModelNotice directly at KeyboardParakeetPlan.current().awaitsV2Download and delete legacy boolean-flattening shims (KeyboardParakeetNotice.modelAwaitsDownload, dictatesEnglish, and KeyboardParakeetDownload.hold(otherEngine:...))\\n- Update DictationStateMachineTests, KeyboardBridgeTests, and DictationControllerTests to cover real snapshot projections, controller transitions, and KeyboardParakeetPlan (#2626) (67f47c9e)\n- iOS keyboard: keep a dictation the screen lock cut short (#2596) (bdfd595a)\n- iOS: Send feedback form (Bellhop), email decides anonymous (#2575) (b99f938b)",
+          "downloadURL": "https://github.com/kyeshmz/hex-sidestore/releases/download/v9.0.2353-r24/Hex.ipa",
+          "size": 26034577,
+          "sha256": "bb75597398a28e5804286033b6880b9aac3b28d1532c6558388b6164efd922c0",
+          "minOSVersion": "18.0",
+          "upstreamCommit": "67f47c9e9de4cdcb712052b8fbbea2cf09358c1a"
+        },
+        {
           "version": "9.0.2312",
           "buildVersion": "2312.23",
           "date": "2026-11-23T18:39:40Z",
